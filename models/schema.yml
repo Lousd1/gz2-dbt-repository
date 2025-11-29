@@ -3,7 +3,9 @@ version: 2
 sources:
   - name: raw
     database: third-reporter-465909-u3
-    schema: gz2_raw_data        # OU {{ target.schema }}
+    schema: gz2_raw_data
+    loader: bigquery
+
     tables:
       - name: sales
         identifier: raw_gz_sales
