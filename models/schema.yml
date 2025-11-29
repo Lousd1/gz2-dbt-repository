@@ -2,17 +2,29 @@ version: 2
 
 sources:
   - name: raw
-    database: third-reporter-465909-u3      # your GCP project ID
-    schema: gz2_raw_data              # or use {{ target.schema }} for environment-safe naming
-    loader: bigquery                 # identifies how data is loaded (fivetran, airbyte, etc.)
-    freshness:
-      warn_after: {count: 12, period: hour}   # warn if data older than 12 hours
-      error_after: {count: 24, period: hour}  # error if data older than 24 hours
+    database: third-reporter-465909-u3
+    schema: gz2_raw_data        # OU {{ target.schema }}
     tables:
       - name: sales
         identifier: raw_gz_sales
-        loaded_at_field: updated_at            # used for freshness checks
+        columns:
+          - name: date_date
+          - name: orders_id
+          - name: pdt_id
+          - name: revenue
+          - name: quantity
+
       - name: product
         identifier: raw_gz_product
+        columns:
+          - name: products_id
+          - name: purchSE_PRICE
+
       - name: ship
         identifier: raw_gz_ship
+        columns:
+          - name: orders_id
+          - name: shipping_fee
+          - name: shipping_fee_1
+          - name: logCost
+          - name: ship_cost
